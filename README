@@ -1,0 +1,27 @@
+Usage: getddl.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config=CONFIG
+                        configuration file, defauts to pgloader.conf
+  -a, --all             -rvsft
+  -r, --tables          Extract Tables
+  -v, --views           Extract Views
+  -s, --sequences       Extract Sequences
+  -f, --functions       Extract Functions
+  -t, --triggers        Extract Triggers
+  -R TABLESDIR, --tables-dir=TABLESDIR
+                        Tables dir
+  -V VIEWSDIR, --views-dir=VIEWSDIR
+                        Views dir
+  -S SEQUENCESDIR, --sequences-dir=SEQUENCESDIR
+                        Sequences dir
+  -F FUNCTIONSDIR, --functions-dir=FUNCTIONSDIR
+                        Functions dir
+  -T TRIGGERSDIR, --triggers-dir=TRIGGERSDIR
+                        Triggers dir
+  -d DB, --database=DB  Database to extract (mandatory)
+  -H HOST, --host=HOST  hostname
+  -p HOST, --port=HOST  TCP Port
+  -U USERNAME, --username=USERNAME
+                        DB User Name
