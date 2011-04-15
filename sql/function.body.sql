@@ -17,11 +17,11 @@ SELECT E'-- \n-- '||p.proname||E'\n-- \ncreate or replace function '||n.nspname|
                                                           || pg_catalog.format_type(p.proargtypes[s.i], NULL)
                                                    FROM pg_catalog.generate_series(0, pg_catalog.array_upper(p.proargtypes, 1)) AS s(i) ), E',\n\t')
                 END,'') 
-        || E'\n)\n returns '
+        || E'\n)\nreturns '
         || (select case when p.proretset='t'::boolean then ' SETOF ' else '' end ) 
         || pg_catalog.format_type(p.prorettype,NULL)
-        || (select case when encode( p.probin, 'escape') <> '-' then E' as \''||encode( p.probin, 'escape')||E'\', \''||p.prosrc||E'\' \n' 
-                        else E' as $$BODY$$\n' || p.prosrc || E'\n$$BODY$$\n' end)
+        || (select case when encode( p.probin::bytea , 'escape') <> '-' then E' as \''||encode( p.probin::bytea, 'escape')||E'\', \''||p.prosrc||E'\' \n' 
+                        else E'\nas $$BODY$$\n' || p.prosrc || E'\n$$BODY$$\n' end)
         || ( select case when p.provolatile='v' then ' VOLATILE '
                 when p.provolatile='s' then ' STABLE ' 
                 when p.provolatile='i' then ' IMMUTABLE ' 
@@ -34,7 +34,7 @@ SELECT E'-- \n-- '||p.proname||E'\n-- \ncreate or replace function '||n.nspname|
                 else '' end ) || E'\n' 
         || ' LANGUAGE ' || (select l.lanname from pg_catalog.pg_language l where l.oid=p.prolang) || E'\n'
         ${costrows83}
-
+        || '\n;\n
     FROM pg_catalog.pg_proc p 
          LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
    WHERE p.prorettype <> 'pg_catalog.cstring'::pg_catalog.regtype 

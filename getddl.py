@@ -114,7 +114,7 @@ class GetDdl:
 
 	def getsql(self, name, **kw):
 		""" Get the SQL query template and substitute the mappings """
-		q = string.Template(open(os.path.join('sql', '%s.sql' % name)).read())
+		q = string.Template(open(os.path.dirname(__file__) + '/' + open(os.path.join('sql', '%s.sql' % name)).read())
 		return q.substitute(kw)
                 
         def getVersion(self):
