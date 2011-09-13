@@ -197,7 +197,7 @@ class GetDdl:
 					print func
 					sys.exit(0)
                                 try:
-                                        f = open(os.path.join(path, '%s.sql' % func), 'w')
+                                        f = open(os.path.join(path, '%s.sql' % func), 'a')
                                         f.write(fbody[0])
                                         f.close()
                                 except IOError:
