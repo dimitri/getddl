@@ -15,19 +15,19 @@ class GetDdl:
                 self.options=options
                 self.l_schemas=[]
                 self.dbname = options.dbname
-                maketree( self.dbname ) 
-                
+                maketree( self.dbname )
+
                 self.dbconn = psycopg.connect('host=%s port=%s dbname=%s user=%s' % \
-                                                      (self.options.dbhost, 
+                                                      (self.options.dbhost,
                                                        self.options.dbport,
                                                        self.options.dbname,
                                                        self.options.dbuser))
-		
-                self.pg_opts= '-h %s -p %s -U %s %s' % (self.options.dbhost, 
+
+                self.pg_opts= '-h %s -p %s -U %s %s' % (self.options.dbhost,
 							self.options.dbport,
 							self.options.dbuser,
 							self.options.dbname)
-		    
+
                 self.getVersion()
                 self.list_nsp()
 
@@ -50,25 +50,25 @@ class GetDdl:
                                 self.extract_tables(schema)
                         print "OK"
 
-                
+
                 if options.sequences or options.all:
                         print "Extract Sequences :",
                         for schema in self.l_schemas:
                                 self.extract_seq(schema)
                         print "OK"
-                        
+
                 if options.views or options.all:
                         print "Extract Views :",
                         for schema in self.l_schemas:
                                 self.extract_views(schema)
                         print "OK"
-                                                        
+
                 if options.functions or options.all:
                         print "Extract Functions :",
                         for schema in self.l_schemas:
                                 self.extract_functions(schema)
                         print "OK"
-                        
+
                 if options.triggers or options.all:
                         print "Extract Triggers :",
                         for schema in self.l_schemas:
@@ -116,28 +116,28 @@ class GetDdl:
 		""" Get the SQL query template and substitute the mappings """
 		q = string.Template( open(  os.path.dirname(__file__) + '/' + os.path.join('sql', '%s.sql' % name) ).read())
 		return q.substitute(kw)
-                
+
         def getVersion(self):
                 cversion = self.dbconn.cursor()
-                cversion.execute("select substring( version()::text ,'([789].[0123456789])'::text) ;") 
+                cversion.execute("select substring( version()::text ,'([789].[0123456789])'::text) ;")
                 record = cversion.fetchall()
                 for v in record:
                         self.version = v[0]
-                
+
         def list_nsp(self):
 		""" return the list of the schemas to consider """
                 cnsp = self.dbconn.cursor()
                 cnsp.execute(self.getsql("schemas"))
-                record = cnsp.fetchall() 
+                record = cnsp.fetchall()
                 for nsp in record:
                         self.l_schemas.append(nsp[0])
                 return
-                
+
         def extract_seq(self,schema):
-                cseqs = self.dbconn.cursor() 
+                cseqs = self.dbconn.cursor()
                 statement = self.getsql("schemas.list.seqs", schema=schema)
-                cseqs.execute(statement) 
-                record = cseqs.fetchall() 
+                cseqs.execute(statement)
+                record = cseqs.fetchall()
                 if len(record)>0:
                         path= os.path.join(self.dbname, self.options.sequencesdir, schema)
                         maketree(path)
@@ -178,8 +178,8 @@ class GetDdl:
         def extract_functions(self, schema, trigger="NOT"):
                 cfuncs = self.dbconn.cursor()
                 statement = self.getsql("schemas.list.functions", schema=schema, trigger_not=trigger)
-                cfuncs.execute(statement) 
-                record = cfuncs.fetchall() 
+                cfuncs.execute(statement)
+                record = cfuncs.fetchall()
                 if len(record)>0:
 			if trigger == "NOT":
 				path= os.path.join(self.dbname, self.options.functionsdir, schema)
@@ -188,8 +188,8 @@ class GetDdl:
                         maketree(path)
                         funbody=self.dbconn.cursor()
                         for func, in record:
-				q = self.getsql('function.body', 
-						schema=schema, proname=func, 
+				q = self.getsql('function.body',
+						schema=schema, proname=func,
 						trigger_not=trigger, costrows83=self.cr83)
                                 funbody.execute(q)
                                 fbody = funbody.fetchone()
@@ -208,7 +208,7 @@ class GetDdl:
 
 def main():
         parser = OptionParser()
-    
+
         parser.add_option("-c", "--config", dest = "config",
                           default = "pgloader.conf",
                           help    = "configuration file, defauts to pgloader.conf")
@@ -278,7 +278,7 @@ def main():
         if options.dbname is not None and len(options.dbname)>0 :
                 getddl = GetDdl( options )
         else:
-                print "Options -d is mandatory." 
+                print "Options -d is mandatory."
                 parser.print_help()
 
 if __name__ == '__main__':
