@@ -267,7 +267,7 @@ def main():
 
         parser.add_option("-p", "--port",
                           help="TCP Port", default="5432",
-                          metavar="HOST", dest="dbport")
+                          metavar="PORT", dest="dbport")
 
         parser.add_option("-U", "--username",
                           help="DB User Name", default="postgres",
