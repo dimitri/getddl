@@ -2,8 +2,6 @@ Usage: getddl.py [options]
 
 Options:
   -h, --help            show this help message and exit
-  -c CONFIG, --config=CONFIG
-                        configuration file, defauts to pgloader.conf
   -a, --all             -rvsft
   -r, --tables          Extract Tables
   -v, --views           Extract Views

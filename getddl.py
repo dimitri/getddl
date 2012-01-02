@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # libs for database interface
 
+VERSION = "0.2"
+
 import os.path, string, subprocess, shlex, tempfile, sys
 import psycopg2.psycopg1 as psycopg
 from optparse import OptionParser
@@ -209,9 +211,10 @@ class GetDdl:
 def main():
         parser = OptionParser()
 
-        parser.add_option("-c", "--config", dest = "config",
-                          default = "pgloader.conf",
-                          help    = "configuration file, defauts to pgloader.conf")
+        parser.add_option("--version", action = "store_true",
+                          dest    = "version",
+                          default = False,
+                          help    = "show getddl version")
 
         parser.add_option("-a", "--all",
                           action="store_true", dest="all",
@@ -274,6 +277,10 @@ def main():
                           metavar="USERNAME", dest="dbuser")
 
         (options, args) = parser.parse_args()
+
+        if options.version:
+            print "getddl version %s" % VERSION
+            sys.exit(0)
 
         if options.dbname is not None and len(options.dbname)>0 :
                 getddl = GetDdl( options )

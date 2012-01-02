@@ -1,0 +1,19 @@
+Source: getddl
+Section: database
+Priority: extra
+Maintainer: Dimitri Fontaine <dim@tapoueh.org>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.1
+Homepage: https://github.com/dimitri/getddl
+Vcs-Git: git://github.com/dimitri/getddl.git
+Vcs-Browser: https://github.com/dimitri/getddl
+
+Package: getddl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python (>=2.4.4)
+Description: PostgreSQL script to extract DDL commands from a database
+ This tool will basically exports your database schema as pg_dump would, the
+ main difference being that it will split it up into folders and files. One
+ separate file per table, function, sequence, trigger, view will allow you
+ to register your database objects in a Version Control Software and review
+ the changes easily.

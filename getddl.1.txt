@@ -1,0 +1,97 @@
+= getddl(1) =
+
+== NAME ==
+
+getddl - Export PostgreSQL objects in separate files for easy versionning
+
+== SYNOPSIS ==
+
+getddl.py [--all] [-r] [-v] [-s] [-f] [-t]
+          [-R tablesdir] [-V viewsdir] [-S sequencesdir]
+          [-F functionsdir] [-T triggersdir]
+          [-d DB] [-H HOST] [-p HOST] [-U USERNAME]
+          database
+
+== DESCRIPTION ==
+
+This tool will basically exports your database schema as pg_dump would, the
+main difference being that it will split it up into folders and files. One
+separate file per table, function, sequence, trigger, view will allow you to
+register your database objects in a Version Control Software and review the
+changes easily.
+
+== ARGUMENTS ==
+
+The database name to connect too.
+
+== OPTIONS ==
+
+-a, --all::
+
+    Exports all supported kind of objects.
+
+-r, --tables::
+
+    Exports tables.
+
+-v, --views::
+
+    Exports views.
+
+-s, --sequences::
+
+    Exports sequences.
+
+-f, --functions::
+
+    Exports functions.
+
+-t, --triggers::
+
+    Exports triggers.
+
+-R::
+
+    Directory where to store tables, as a +database+ subdirectory, created if necessary.
+
+-V::
+
+    Directory where to store views, as a +database+ subdirectory, created if necessary.
+
+-S::
+
+    Directory where to store sequences, as a +database+ subdirectory, created if necessary.
+
+-F::
+
+    Directory where to store functions, as a +database+ subdirectory, created if necessary.
+
+-T::
+
+    Directory where to store triggers, as a +database+ subdirectory, created if necessary.
+
+-d DB::
+
+    The name of the database to export.
+
+-H HOST::
+
+    Hostname to use to connect to PostgreSQL.
+
+-p PORT::
+
+    Port number to use to connect to PostgreSQL.
+
+-U USERNAME::
+
+    Username to use to connect to PostgreSQL.
+
+== BUGS ==
+
+Please report bugs to Dimitri Fontaine <dim@tapoueh.org> or using the github
+issue interface at https://github.com/dimitri/getddl/issues.
+
+== AUTHORS ==
+
++getddl+ is written by Dimitri Fontaine <dim@tapoueh.org>.
+
