@@ -5,8 +5,8 @@ PKGVERS = $(shell dpkg-parsechangelog | awk -F '[:-]' '/^Version:/ { print subst
 
 # debian setting
 DESTDIR =
-
 DOCS    = getddl.1.txt
+SQL     = $(wildcard sql/*.sql)
 
 ${DOCS:.txt=.xml}: $(DOCS)
 	asciidoc -d manpage -b docbook $<
@@ -22,6 +22,8 @@ clean:
 
 install: man
 	install -m 755 getddl.py $(DESTDIR)/usr/bin/getddl
+	install -m 755 -d $(DESTDIR)/usr/share/getddl/sql
+	install -m 644 -t $(DESTDIR)/usr/share/getddl/sql $(SQL)
 
 orig:
 	cd .. && tar czf getddl_$(PKGVERS).orig.tar.gz --exclude-vcs getddl

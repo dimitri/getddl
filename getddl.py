@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # libs for database interface
 
-VERSION = "0.2"
+VERSION = "0.3"
+TMPL_DIR = "/usr/share/getddl"
 
 import os.path, string, subprocess, shlex, tempfile, sys
 import psycopg2.psycopg1 as psycopg
@@ -116,7 +117,17 @@ class GetDdl:
 
     def getsql(self, name, **kw):
         """ Get the SQL query template and substitute the mappings """
-        q = string.Template( open(  os.path.dirname(__file__) + '/' + os.path.join('sql', '%s.sql' % name) ).read())
+        tmpl_localpath = os.path.join('sql', '%s.sql' % name)
+        local_tmpl = os.path.join(os.path.dirname(__file__), tmpl_localpath)
+        sys_tmpl = os.path.join(TMPL_DIR, tmpl_localpath)
+        if os.path.exists(local_tmpl):
+            tmpl = local_tmpl
+        elif os.path.exists(sys_tmpl):
+            tmpl = sys_tmpl
+        else:
+            raise Exception, "Can not find SQL templates for getddl"
+
+        q = string.Template(open(tmpl).read())
         return q.substitute(kw)
 
     def getVersion(self):
