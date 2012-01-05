@@ -14,10 +14,10 @@ def maketree(path):
         os.makedirs(path)
 
 class GetDdl:
-    def __init__(self,options):
-        self.options=options
-        self.l_schemas=[]
-        self.dbname = options.dbname
+    def __init__(self,options, schemas):
+        self.options   = options
+        self.l_schemas = schemas
+        self.dbname    = options.dbname
         maketree( self.dbname )
 
         self.dbconn = psycopg.connect('host=%s port=%s dbname=%s user=%s' % \
@@ -50,32 +50,37 @@ class GetDdl:
             print "Extract Tables :",
 
             for schema in self.l_schemas:
-                    self.extract_tables(schema)
+                print schema,
+                self.extract_tables(schema)
             print "OK"
 
 
         if options.sequences or options.all:
             print "Extract Sequences :",
             for schema in self.l_schemas:
-                    self.extract_seq(schema)
+                print schema,
+                self.extract_seq(schema)
             print "OK"
 
         if options.views or options.all:
             print "Extract Views :",
             for schema in self.l_schemas:
-                    self.extract_views(schema)
+                print schema,
+                self.extract_views(schema)
             print "OK"
 
         if options.functions or options.all:
             print "Extract Functions :",
             for schema in self.l_schemas:
-                    self.extract_functions(schema)
+                print schema,
+                self.extract_functions(schema)
             print "OK"
 
         if options.triggers or options.all:
             print "Extract Triggers :",
             for schema in self.l_schemas:
-                    self.extract_triggers(schema)
+                print schema,
+                self.extract_triggers(schema)
             print "OK"
 
     def pg_dump_schema(self):
@@ -139,6 +144,9 @@ class GetDdl:
 
     def list_nsp(self):
         """ return the list of the schemas to consider """
+        if self.l_schemas:
+            # user has given us a list of schemas
+            return
         cnsp = self.dbconn.cursor()
         cnsp.execute(self.getsql("schemas"))
         record = cnsp.fetchall()
@@ -294,7 +302,7 @@ def main():
         sys.exit(0)
 
     if options.dbname is not None and len(options.dbname)>0 :
-            getddl = GetDdl( options )
+            getddl = GetDdl( options, args )
     else:
             print "Options -d is mandatory."
             parser.print_help()

@@ -10,7 +10,7 @@ getddl.py [--all] [-r] [-v] [-s] [-f] [-t]
           [-R tablesdir] [-V viewsdir] [-S sequencesdir]
           [-F functionsdir] [-T triggersdir]
           [-d DB] [-H HOST] [-p HOST] [-U USERNAME]
-          database
+          [schema] [schema] ...
 
 == DESCRIPTION ==
 
@@ -22,7 +22,8 @@ changes easily.
 
 == ARGUMENTS ==
 
-The database name to connect too.
+The list of schemas to consider when extracting database objects. When the
+list is empty, the list of them is queried at the database.
 
 == OPTIONS ==
 

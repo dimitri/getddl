@@ -1,4 +1,4 @@
-Usage: getddl.py [options]
+Usage: getddl.py [options] [schema ...]
 
 Options:
   -h, --help            show this help message and exit
