@@ -10,7 +10,7 @@ Vcs-Browser: https://github.com/dimitri/getddl
 
 Package: getddl
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, python (>=2.4.4)
+Depends: ${shlibs:Depends}, ${misc:Depends}, python (>=2.4.4), python-psycopg2
 Description: PostgreSQL script to extract DDL commands from a database
  This tool will basically exports your database schema as pg_dump would, the
  main difference being that it will split it up into folders and files. One
