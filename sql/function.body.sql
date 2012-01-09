@@ -34,7 +34,7 @@ SELECT E'-- \n-- '||p.proname||E'\n-- \ncreate or replace function '||n.nspname|
                 else '' end ) || E'\n' 
         || ' LANGUAGE ' || (select l.lanname from pg_catalog.pg_language l where l.oid=p.prolang) || E'\n'
         ${costrows83}
-        || '\n;\n' 
+        || E'\n;\n' 
     FROM pg_catalog.pg_proc p 
          LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
    WHERE p.prorettype <> 'pg_catalog.cstring'::pg_catalog.regtype 
