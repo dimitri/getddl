@@ -1,7 +1,8 @@
-Usage: getddl.py [options] [schema ...]
+Usage: getddl [--version] [--help] [option ...] [schema ...]
 
 Options:
-  -h, --help            show this help message and exit
+  --version             show getddl version
+  --help                show getddl help
   -a, --all             -rvsft
   -r, --tables          Extract Tables
   -v, --views           Extract Views
@@ -19,7 +20,7 @@ Options:
   -T TRIGGERSDIR, --triggers-dir=TRIGGERSDIR
                         Triggers dir
   -d DB, --database=DB  Database to extract (mandatory)
-  -H HOST, --host=HOST  hostname
-  -p HOST, --port=HOST  TCP Port
+  -h HOST, --host=HOST  hostname
+  -p PORT, --port=PORT  TCP Port
   -U USERNAME, --username=USERNAME
                         DB User Name

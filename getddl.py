@@ -228,12 +228,18 @@ class GetDdl:
         return self.extract_functions(schema, trigger = "")
 
 def main():
-    parser = OptionParser()
+    usage = "getddl [--version] [--help] [option ...] [schema ...]"
+    parser = OptionParser(add_help_option = False, usage=usage)
 
     parser.add_option("--version", action = "store_true",
                       dest    = "version",
                       default = False,
                       help    = "show getddl version")
+
+    parser.add_option("--help", action = "store_true",
+                      dest    = "help",
+                      default = False,
+                      help    = "show getddl help")
 
     parser.add_option("-a", "--all",
                       action="store_true", dest="all",
@@ -283,7 +289,7 @@ def main():
                       help="Database to extract (mandatory)", metavar="DB",
                       dest="dbname")
 
-    parser.add_option("-H", "--host",
+    parser.add_option("-h", "--host",
                       help="hostname", default="localhost",
                       metavar="HOST", dest="dbhost")
 
@@ -296,6 +302,10 @@ def main():
                       metavar="USERNAME", dest="dbuser")
 
     (options, args) = parser.parse_args()
+
+    if options.help:
+        parser.print_help()
+        sys.exit(0)
 
     if options.version:
         print "getddl version %s" % VERSION

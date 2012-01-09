@@ -75,7 +75,7 @@ list is empty, the list of them is queried at the database.
 
     The name of the database to export.
 
--H HOST::
+-h HOST::
 
     Hostname to use to connect to PostgreSQL.
 
