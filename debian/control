@@ -3,7 +3,7 @@ Section: database
 Priority: extra
 Maintainer: Dimitri Fontaine <dim@tapoueh.org>
 Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: https://github.com/dimitri/getddl
 Vcs-Git: git://github.com/dimitri/getddl.git
 Vcs-Browser: https://github.com/dimitri/getddl

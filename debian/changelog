@@ -1,3 +1,9 @@
+getddl (0.3-1) unstable; urgency=low
+
+  * Fix extracting functions with multiple definitions
+
+ -- Dimitri Fontaine <dim@tapoueh.org>  Wed, 07 Mar 2012 18:09:51 +0100
+
 getddl (0.2-1) unstable; urgency=low
 
   * Initial release
