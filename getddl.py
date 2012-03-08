@@ -213,20 +213,13 @@ class GetDdl:
                                 schema=schema, proname=func,
                                 trigger_not=trigger, costrows83=self.cr83)
                 funbody.execute(q)
-                first = True
-                mode = 'w'
+                f = open(os.path.join(path, '%s.sql' % func), 'w')
                 for fbody in funbody.fetchall():
                     try:
-                        f = open(os.path.join(path, '%s.sql' % func), mode)
                         f.write(fbody[0])
-                        f.close()
                     except IOError:
                         pass
-
-                    if first:
-                        # after the first function body, append to the file
-                        first = False
-                        mode = 'a'
+                f.close()
 
     def extract_triggers(self, schema):
         return self.extract_functions(schema, trigger = "")
